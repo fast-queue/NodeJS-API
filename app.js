@@ -1,17 +1,17 @@
-exports = module.exports = function(Config) {
-	var config = new Config();
+exports = module.exports = function(service) {
+
 	return {
 		create: function() {
-			var teste = new Config();
-
-			teste.setKey('minhavidaeandarporestepais');
-			console.log(teste.getUrl(), teste.getKey());
-			return this;
+			service.initiate('http://tcc-andre.ddns.net/queue', 'minhavidaeandarporestepais');
+			service.createQueue('teste', (err, id) => {
+				})
+			service.addPlayer('123456123', { name: 'andre', city: 'srs' }, (err, id) => {
+				console.log(err, id);
+			});
 		}
 	}
-
 
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['models/Config'];
+exports['@require'] = ['controller'];
