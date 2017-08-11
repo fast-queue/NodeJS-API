@@ -18,10 +18,10 @@ exports = module.exports = function(Config, core) {
 		if (name) { options.body = JSON.stringify({ name: name }) }
 
 		core.request(options, (err, resp) => {
-			var body = JSON.parse(resp.body);
 			if (err) {
 				return cb(err);
 			}
+			var body = JSON.parse(resp.body);
 			if (resp.status === 200) {
 				return cb(null, body._id);
 			}
@@ -47,11 +47,10 @@ exports = module.exports = function(Config, core) {
 		if (player) { options.body = JSON.stringify(player) }
 
 		core.request(options, (err, resp) => {
-			var body = JSON.parse(resp.body);
-
 			if (err) {
 				return cb(err);
 			}
+			var body = JSON.parse(resp.body);
 			if (resp.status === 200) {
 				return cb(null, body._id);
 			} else if (resp.status === 400) {
@@ -61,6 +60,135 @@ exports = module.exports = function(Config, core) {
 
 		})
 	};
+
+	/**
+	 * Remove a queue from the server
+	 * @param {String} id the _id of the queue
+	 * @param {Function} cb Callback function to process the result
+	 */
+	var removeQueue = (id, cb) => {
+		var options = {
+			method: 'DELETE',
+			url: configuration.getUrl() + '/' + id,
+			headers: {
+				'API-KEY': configuration.getKey()
+			}
+		}
+		core.request(options, (err, resp) => {
+			var body = JSON.parse(resp.body);
+			if (err) {
+				return cb(err);
+			}
+			if (resp.status === 200) {
+				return cb(null, body._id);
+			} else if (resp.status === 400) {
+				return cb('Queue not found, not deleted');
+			}
+			return cb('Wrong status code: ' + resp.status + '/n body: ' + resp.body);
+		})
+	}
+
+	/**
+	 * Remove a player from queue;
+	 * @param {String} qId Queue _ID
+	 * @param {String} pId Player _ID
+	 * @param {Function} cb Callback Function
+	 */
+	var removePlayerFromQueue = (qId, pId, cb) => {
+		var options = {
+			method: 'DELETE',
+			url: configuration.getUrl() + '/' + qId + '/players/' + pId,
+			headers: {
+				'API-KEY': configuration.getKey()
+			}
+		}
+		core.request(options, (err, resp) => {
+			var body = JSON.parse(resp.body);
+			if (err) {
+				return cb(err);
+			}
+			if (resp.status === 200) {
+				return cb(null, body._id);
+			} else if (resp.status === 400) {
+				return cb(res.message);
+			}
+			return cb('Wrong status code: ' + resp.status + '/n body: ' + resp.body);
+		})
+	}
+
+	/**
+	 * Get all Queues on server. (Queues that the API-KEY has access)
+	 * @param {Function} cb Callback function to process result
+	 */
+	var getAllQueues = (cb) => {
+		var options = {
+			method: 'GET',
+			url: configuration.getUrl(),
+			headers: {
+				'API-KEY': configuration.getKey()
+			}
+		}
+		core.request(options, (err, resp) => {
+			if (err) {
+				return cb(err);
+			}
+			var body = JSON.parse(resp.body);
+			if (resp.status === 200) {
+				return cb(null, body);
+			}
+			return cb('Wrong status code: ' + resp.status + '/n body: ' + resp.body);
+		});
+	}
+
+	/**
+	 * Get all queue's information, but do not include players on that queue. (See getPlayersOnQueue)
+	 * @param {String} id Queue id
+	 * @param {Function} cb CallbackFunction
+	 */
+	var getQueue = (id, cb) => {
+		var options = {
+			method: 'GET',
+			url: configuration.getUrl() + '/' + id,
+			headers: {
+				'API-KEY': configuration.getKey()
+			}
+		}
+		core.request(options, (err, resp) => {
+			if (err) {
+				return cb(err);
+			}
+			var body = JSON.parse(resp.body);
+			if (resp.status === 200) {
+				return cb(null, body);
+			}
+			return cb('Wrong status code: ' + resp.status + '/n body: ' + resp.body);
+		});
+	}
+
+	/**
+	 * Get all players that are included on the queue
+	 * @param {String} id Queue id
+	 * @param {Function} cb Callback function
+	 */
+	var getPlayersOnQueue = (id, cb) => {
+		var options = {
+			method: 'GET',
+			url: configuration.getUrl() + '/' + id + '/players',
+			headers: {
+				'API-KEY': configuration.getKey()
+			}
+		}
+		core.request(options, (err, resp) => {
+			if (err) {
+				return cb(err);
+			}
+			var body = JSON.parse(resp.body);
+			if (resp.status === 200) {
+				return cb(null, body);
+			}
+			return cb('Wrong status code: ' + resp.status + '/n body: ' + resp.body);
+		});
+	}
 
 	/**
 	 * Initial configuration to access server
@@ -75,8 +203,13 @@ exports = module.exports = function(Config, core) {
 		return true;
 	}
 	return {
+		getQueue: getQueue,
+		getPlayers: getPlayersOnQueue,
+		getAllQueues: getAllQueues,
 		addPlayer: addPlayerToQueue,
 		createQueue: createQueue,
+		removePlayer: removePlayerFromQueue,
+		removeQueue: removeQueue,
 		initiate: configure,
 		config: configuration
 	}
