@@ -10,12 +10,16 @@ exports = module.exports = function() {
 	var key = '';
 	var url = 'http://tcc-andre.ddns.net/queue/';
 
+	/**
+	 * Config Class
+ 	 * @class
+ 	 */
 	function Config() {
 		return this;
 	}
 	/**
 	 * Set the api-key value for http-rest
-	 * @Param key the key
+	 * @param {String} key The API-KEY used for authentication
 	 */
 	Config.prototype.setKey = function(pKey) {
 		if (typeof pKey === 'string') {
@@ -25,6 +29,10 @@ exports = module.exports = function() {
 		throw new Error('Not a String');
 	}
 
+	/**
+	 * Set the access url
+	 * @param {String} pUrl The url for the service access
+	 */
 	Config.prototype.setUrl = function(pUrl) {
 		if (typeof pUrl === 'string') {
 			url = pUrl;
@@ -33,10 +41,18 @@ exports = module.exports = function() {
 		throw new Error('Not a String');
 	}
 
+	/**
+	 * Get API-KEY that are in use
+	 * @return the API-KEY
+	 */
 	Config.prototype.getKey = function() {
 		return key;
 	}
 
+	/**
+	 * Get url that are in use
+	 * @return the URL
+	 */
 	Config.prototype.getUrl = function() {
 		return url;
 	}

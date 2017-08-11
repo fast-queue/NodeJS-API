@@ -1,10 +1,16 @@
+/**
+ * Core module with the basic REST functions
+ * @module
+ */
+
+
 exports = module.exports = function(request) {
 	/**
 	 * Process a request given an options object
 	 * @param {Object} options Options object for the request. (See generateOptions)
 	 * @param {Function} cb callback to be called when processed the request.
 	 */
-	var basicRest = (options, cb) => {
+	function basicRest(options, cb) {
 		request(options, (err, response, body) => {
 			if (err) {
 				return cb(err);
@@ -15,12 +21,6 @@ exports = module.exports = function(request) {
 
 	/**
 	 * Generates the options to REQUEST
-	 * @param {String} url the url to be called
-	 * @param {String} method method: PUT, POST, DELETE, GET
-	 * @param {Object} headers Headers to HTTP Request
-	 * @param {Object} obj The body obj, if there is
-	 * @return {Objcet} Options object returned
-	 *
 	 * Return Object
 	 * {	url: String,
 	 * 		method: String,
@@ -32,8 +32,14 @@ exports = module.exports = function(request) {
 	 * {	'User-Agent': 'request',
 	 * 		'Content-Type': 'text/html'
 	 * }
+	 * @param {String} url the url to be called
+	 * @param {String} method method: PUT, POST, DELETE, GET
+	 * @param {Object} headers Headers to HTTP Request
+	 * @param {Object} obj The body obj, if there is
+	 * @return {Objcet} Options object returned
+	 *
 	 */
-	var generateOptions = (url, method, headers, obj) => {
+	function generateOptions(url, method, headers, obj) {
 		if (!url) { return new Error('No url found') }
 		if (!method) { return new Error('No method found') }
 		var ret = { url: url, method: method };

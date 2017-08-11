@@ -1,3 +1,7 @@
+/**
+ * Basic controller
+ * @module
+ */
 exports = module.exports = function(Config, core) {
 	var configuration = new Config();
 
@@ -90,6 +94,7 @@ exports = module.exports = function(Config, core) {
 
 	/**
 	 * Remove a player from queue;
+	 * @function
 	 * @param {String} qId Queue _ID
 	 * @param {String} pId Player _ID
 	 * @param {Function} cb Callback Function
