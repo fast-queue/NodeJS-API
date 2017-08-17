@@ -179,7 +179,7 @@ exports = module.exports = function (Config, core) {
 	}
 
 	/**
-	 * Get all queue's information, but do not include players on that queue. (See getPlayersOnQueue)
+	 * Get all player's information on a queue.
 	 * @param {Object} obj Data object. See object below
 	 * @param {Function} cb CallbackFunction
 	 * 
