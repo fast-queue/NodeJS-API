@@ -2,7 +2,7 @@
  * Basic controller
  * @module
  */
-exports = module.exports = function(Config, core) {
+exports = module.exports = function (Config, core) {
 	var configuration = new Config();
 
 	/**
@@ -147,13 +147,21 @@ exports = module.exports = function(Config, core) {
 
 	/**
 	 * Get all queue's information, but do not include players on that queue. (See getPlayersOnQueue)
-	 * @param {String} id Queue id
+	 * @param {Object} obj Data object. See object below
 	 * @param {Function} cb CallbackFunction
+	 * 
+	 * obj = {
+	 * 	id: String -- The queue ID -- Needed
+	 * 	plugin?: http address from plugin to be executed.
+	 * }
 	 */
-	var getQueue = (id, cb) => {
+	var getQueue = (obj, cb) => {
+		if (!obj.id) { return new Error('No queue id found on obj.') }
+		var URI = configuration.getUrl() + '/' + obj.id;
+		obj.plugin ? URI += '?callback=' + obj.plugin : console.log('[Info?] No plugin entered');
 		var options = {
 			method: 'GET',
-			url: configuration.getUrl() + '/' + id,
+			url: URI,
 			headers: {
 				'API-KEY': configuration.getKey()
 			}
@@ -171,14 +179,22 @@ exports = module.exports = function(Config, core) {
 	}
 
 	/**
-	 * Get all players that are included on the queue
-	 * @param {String} id Queue id
-	 * @param {Function} cb Callback function
+	 * Get all queue's information, but do not include players on that queue. (See getPlayersOnQueue)
+	 * @param {Object} obj Data object. See object below
+	 * @param {Function} cb CallbackFunction
+	 * 
+	 * obj = {
+	 * 	id: String -- The queue ID -- Needed
+	 * 	plugin?: http address from plugin to be executed.
+	 * }
 	 */
-	var getPlayersOnQueue = (id, cb) => {
+	var getPlayersOnQueue = (obj, cb) => {
+		if (!obj.id) { return new Error('No queue id found on obj.') }
+		var URI = configuration.getUrl() + '/' + obj.id + '/players';
+		obj.plugin ? URI += '?callback=' + obj.plugin : console.log('[Info?] No plugin entered');
 		var options = {
 			method: 'GET',
-			url: configuration.getUrl() + '/' + id + '/players',
+			url: URI,
 			headers: {
 				'API-KEY': configuration.getKey()
 			}
