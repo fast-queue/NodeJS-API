@@ -8,6 +8,10 @@ This API connects with the Fast-Queue core framework hosted at http://tcc-andre.
 npm install mp-fast-queue
 ```
 
+## Use ## 
+
+var fq = require('mp-fast-queue');
+
 ### Thanks ###
 
 Thanks all that helped me:
