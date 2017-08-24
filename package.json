@@ -1,5 +1,5 @@
 {
-	"name": "fastQueue-api",
+	"name": "mp-fast-queue",
 	"version": "0.0.1",
 	"description": "TCC-API",
 	"main": "index.js",
