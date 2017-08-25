@@ -1,6 +1,6 @@
 {
 	"name": "mp-fast-queue",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"description": "TCC-API",
 	"main": "index.js",
 	"config": {
@@ -15,5 +15,13 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Andre Bovendorp",
-	"license": "(ISC OR GPL-3.0)"
+	"license": "(ISC OR GPL-3.0)",
+	"bugs": {
+		"url": "https://github.com/fast-queue/Nodejs-API/issues"
+	},
+	"homepage": "https://github.com/fast-queue/Nodejs-API#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fast-queue/Nodejs-API"
+	}	
 }
