@@ -1,13 +1,12 @@
 {
 	"name": "mp-fast-queue",
-	"version": "0.0.10",
-	"description": "TCC-API",
+	"version": "0.1.0",
+	"description": "TCC-SDK",
 	"main": "index.js",
 	"config": {
-		"version": "6.2.0"
+		"version": "*"
 	},
 	"dependencies": {
-		"electrolyte": "^0.2.6",
 		"request": "^2.81.0"
 	},
 	"devDependencies": {},
