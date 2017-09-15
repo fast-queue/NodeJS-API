@@ -1,4 +1,4 @@
-# Fast-Queue NodeJS-API #
+# Fast-Queue NodeJS-SDK #
 
 This API connects with the Fast-Queue core framework hosted at http://tcc-andre.ddns.net/ using REST with the porpouse to make easy the integration of NodeJS codes.
 
