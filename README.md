@@ -15,7 +15,7 @@ npm install mp-fast-queue
 
 ## Documentation ##
 
-See the [Documentation](https://fast-queue.github.io/NodeJS-API/) page for more help. 
+See the [Documentation](https://fast-queue.github.io/NodeJS-SDK/) page for more help. 
 Functions at index module.
 
 ## Use ## 
